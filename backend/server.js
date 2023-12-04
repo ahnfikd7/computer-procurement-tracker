@@ -4,7 +4,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 const axios = require('axios');
 const cors = require('cors');
-const accessToken = 'jlDEsideZ0tmMCwaMrL05cWqnwCb0EYfj3tbT7Pjp7FVzxEimGQn11jRcNApk8W6c6WKD3lr6ItDqEPs3FALKg'; // Ideally fetched dynamically
+const accessToken = 'JEWwpQriJXxBbT9PEANazgkzVsAROxn17TnsuyYYSQhF7lLwWwhDTfMQHYnzeFjPWMkaVry-CV99EPVkfXHGdg'; // Ideally fetched dynamically
 
 
 
