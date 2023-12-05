@@ -7,6 +7,7 @@
   </div>
 </template>
 
+
 <script>
 import axios from 'axios';
 export default {
@@ -39,6 +40,8 @@ export default {
 };
 </script>
 
+
 <style>
+
 
 </style>

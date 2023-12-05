@@ -1,5 +1,5 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
+  <img alt="Vue logo" src="https://upload.wikimedia.org/wikipedia/en/c/c1/John_F._Kennedy_School_of_Government_Shield.svg">
       <router-view></router-view>
 
  

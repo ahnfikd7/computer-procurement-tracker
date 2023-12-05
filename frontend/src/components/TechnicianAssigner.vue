@@ -7,7 +7,7 @@
       </div>
     </div>
   </template>
-  
+ 
  
 <script>
 import axios from 'axios';
@@ -31,6 +31,7 @@ export default {
         await axios.put(`https://harvardtest.service-now.com/api/incidents/${this.incident.sys_id}`, {
           technician: this.technicianName
         });
+        this.$emit('technicianUpdated', this.newTechnician); // Emit an event to the parent component
         this.$emit('stepCompleted', 2);
       } catch (error) {
         console.error('Error assigning technician:', error);
@@ -39,10 +40,9 @@ export default {
   }
 };
 </script>
-  
+ 
   <style>
   .technician-assigner {
     /* Add your CSS styles here */
   }
   </style>
-  

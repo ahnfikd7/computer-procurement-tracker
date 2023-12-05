@@ -1,13 +1,13 @@
 <template>
   <div class="tracker-container">
-    <h1 class="tracker-title">Incident Tracker</h1>
+    <h1 class="tracker-title">Computer Procurement Tracker</h1>
     <div v-if="loading" class="loading">Loading incidents...</div>
     <ul v-else class="incident-list">
       <li v-for="incident in incidents" :key="incident.sys_id" @click="selectIncident(incident)" class="incident-item">
         {{ incident.short_description }} - Status: {{ incident.state }}
       </li>
     </ul>
-    <IncidentDetails v-if="selectedIncident" :incident="selectedIncident" @technicianUpdated="handleTechnicianUpdate"/>
+    <IncidentDetails v-if="selectedIncident" :incident="selectedIncident" @technicianUpdated="handleTechnicianUpdate" @statusChange="handleStatusChange"/>
   </div>
 </template>
 
@@ -41,6 +41,33 @@ export default {
       }
     },
 
+    handleStatusChange(newStatus) {
+    if (this.selectedIncident) {
+      // Update the status on the selected incident
+      this.selectedIncident.currentStatus = newStatus;
+      // Make an API call to update the status in the backend if necessary
+      this.updateIncidentStatus(this.selectedIncident.sys_id, newStatus);
+    }
+  },
+
+  async updateIncidentStatus(incidentId, newStatus) {
+    try {
+      // Assuming you have an endpoint that accepts PATCH or PUT requests to update the incident
+      const response = await axios.patch(`http://localhost:3000/api/incidents/${incidentId}`, {
+        currentStatus: newStatus
+      });
+
+      // Handle the response, e.g., updating the local state or notifying the user
+      console.log('Incident status updated:', response.data);
+
+      // If you need to update the local incident data with the response
+      this.selectedIncident = { ...this.selectedIncident, ...response.data };
+    } catch (error) {
+      console.error('Error updating incident status:', error);
+      // Handle error, e.g., show error message to the user
+    }
+  },
+
     handleTechnicianUpdate(newTechnicianName) {
   if (this.selectedIncident) {
     // Update the whole incidents array to trigger reactivity
@@ -61,7 +88,7 @@ export default {
 
 
     selectIncident(incident) {
-      this.selectedIncident = incident;
+      this.selectedIncident = { ...incident, currentStatus: 1 };
     }
   },
   components: {
@@ -87,11 +114,12 @@ export default {
 .incident-list {
   list-style-type: none;
   padding: 0;
+  margin-top: 20px;
 }
 
 .incident-item {
   padding: 10px;
-  margin: 5px 0;
+  margin: 10px 0;
   border-radius: 4px;
   background-color: #fff;
   cursor: pointer;
@@ -100,9 +128,12 @@ export default {
 
 .incident-item:hover {
   background-color: #e9e9e9;
+  transform: scale(1.02);
 }
 
 .loading, .no-incidents {
   text-align: center;
 }
+
+
 </style>

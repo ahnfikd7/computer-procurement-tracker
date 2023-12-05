@@ -4,7 +4,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 const axios = require('axios');
 const cors = require('cors');
-const accessToken = 'JEWwpQriJXxBbT9PEANazgkzVsAROxn17TnsuyYYSQhF7lLwWwhDTfMQHYnzeFjPWMkaVry-CV99EPVkfXHGdg'; // Ideally fetched dynamically
+const accessToken = 'MaRBm8MI_8hITLCq36eqeJsMqI1lmaKrlVXyJTIunvh_Sgts2AR2DiISuAwMbs3nXCieE9o9PL4Ew5IcVhC-sQ'; // Ideally fetched dynamically
 
 
 
@@ -36,6 +36,7 @@ const getServiceNowIncident = async (incidentNumber) => {
        throw error;
    }
 };
+
 
 
 const getServiceNowUser = async (userId) => {
